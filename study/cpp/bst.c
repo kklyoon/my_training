@@ -67,14 +67,14 @@ node* deleteNode(node* root, int key)
         if (root->left == NULL) 
         { 
             node *temp = root->right; 
-            free(root); 
-            return temp; 
+            free(root);                 
+            return temp;                // return right child
         } 
         else if (root->right == NULL) 
         { 
             node *temp = root->left; 
             free(root); 
-            return temp; 
+            return temp;                // return left child
         } 
   
         // node with two children: Get the inorder successor (smallest 
