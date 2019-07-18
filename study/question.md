@@ -36,6 +36,107 @@ BST의 속성 ( 왼쪽은 작고, 오른쪽은 크고)
 Max-Heap 속성을 가지는 priority 가 랜덤 할당됨, priority 가 높은 노드가 부모노드가 됨
 worst case 일 때 O(N)
 
+### How many levels in a complete binary tree of size n?
+floor(1 + log(base2)(n))  
+floor() : 바닥함수 ex) floor(x) 는 x 이하 정수, 반대로 천장함수는 ceil(x) 로 표기
 
 
+### In C or Python, Write a universal hashing function for a string, taking as arguments a string and the capacity of the hashtable.
+```c
+int hash(const char* key, const int m) { 
+    int hash = 0; 
+    for (int i = 0; i < key[i] != '\0'; ++i) { 
+        hash = hash * 31 + key[i];
+    } 
+    return abs(hash % m); 
+}
+```
 
+### Write a binary search function that works recursively, returning the index of the found item, or -1.
+```c
+int binary_search_recur(int target, int numbers[], int low, int high) 
+{ 
+    if (low > high) { return -1; } 
+    int mid = (high + low) / 2; 
+    if (target > numbers[mid]) { 
+        return binary_search_recur(target, numbers, mid + 1, high); } 
+    else if (target < numbers[mid]) { 
+        return binary_search_recur(target, numbers, low, mid - 1); } 
+    else { return mid; } 
+}
+```
+
+### Write a binary search function that works iteratively, taking a target int, array of ints, and size of the array, returning the index of the found item, or -1.
+```c
+int binary_search(int target, int numbers[], int size) { 
+    int low = 0; 
+    int high = size - 1; 
+    int mid = 0; 
+    while (low <= high) { 
+        mid = (high + low) / 2; 
+        if (target > numbers[mid]) { low = mid + 1; } else if (target < numbers[mid]) { high = mid - 1;} 
+        else { return mid; } 
+    } 
+    return -1; 
+}
+```
+
+### How would you turn ON the 3rd bit from the end in a bitstring?
+```
+x |= (1 << 2)
+```
+
+### Write a function to add 2 integers using bitwise operations.
+```
+def add(a, b): while a: 
+c = b & a 
+b ^= a 
+c <<= 1 
+a = c 
+return b
+```
+
+### Write a function to calculate the absolute value of a 32-bit integer.
+```
+def myabs(x): high_bit_mask = x >> 31 
+return (x ^ high_bit_mask) - high_bit_mask
+```
+
+### Describe the universal hashing function for an integer. What arguments would it need? What would it look like?
+```
+/* key = the Key a = random number from 1 to p-1 b = random number from 0 to p-1 p = a prime number >=m m = the size of the array */ 
+int hash(int key, int a, int b, int p, int m) { 
+    return ((a * x + b) % p) % m; }
+```
+
+### Write a function that calculates the Hamming distance.
+```
+def hamming_distance(x, y): 
+difference = x ^ y 
+count = 0 
+while difference != 0: 
+    count += 1 difference &= difference - 1 
+    return count
+```
+
+### Write a function to calculate the Hamming weight of an integer. (Kernighan method)
+```
+int countSetBits(int n) { 
+    int count = 0; 
+    while (n) { 
+        n = n & (n - 1);
+         ++count;
+    } 
+    return count; }
+```
+
+### Write a function that calculates the Hamming weight in constant time. Divide and Conquer strategy.
+```
+int countSetBits(unsigned int n) { 
+    n = n - ((n >> 1) & 0x55555555); 
+    n = (n & 0x33333333) + ((n >> 2) & 0x33333333);
+    n = (n + (n >> 4)) & 0x0F0F0F0F;
+    n = n + (n >> 8); 
+    n = n + (n >> 16); 
+    return n & 0x0000003F; }
+```
