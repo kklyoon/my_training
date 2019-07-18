@@ -29,6 +29,22 @@ void heapify(int arr[], int n, int i)
 	} 
 } 
 
+void heapify_desc(int arr[], int n, int i)
+{
+	int smallest = i;
+	int l = i*2 + 1;
+	int r = i*2 + 2;
+
+	if(l < n && arr[l] < arr[smallest]) smallest = l;
+	if(r < n && arr[r] < arr[smallest]) smallest = r;
+	if(smallest != i)
+	{
+		swap(arr[i], arr[smallest]);
+
+		heapify_desc(arr, n, smallest);
+	}
+}
+
 // main function to do heap sort 
 void heapSort(int arr[], int n) 
 { 
@@ -46,6 +62,18 @@ void heapSort(int arr[], int n)
 		heapify(arr, i, 0); 
 	} 
 } 
+
+void heapSort_desc(int arr[], int n ){
+	for(int i = n / 2 - 1; i >= 0 ; i--)
+		heapify_desc(arr, n, i);
+
+	for(int i = n-1; i>=0 ; i--)
+	{
+		swap(arr[0], arr[i]);
+
+		heapify_desc(arr, i, 0);
+	}
+}
 
 /* A utility function to print array of size n */
 void printArray(int arr[], int n) 
@@ -67,5 +95,10 @@ int main()
 	heapSort(arr, n); 
 
 	cout << "Sorted array is \n"; 
+	printArray(arr, n); 
+
+	heapSort_desc(arr, n);
+
+	cout << "Descending Sorted array is \n"; 
 	printArray(arr, n); 
 } 
